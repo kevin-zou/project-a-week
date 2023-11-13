@@ -1,0 +1,38 @@
+#text {
+  width: fit-content;
+}
+
+.blink::after {
+  content: "";
+  display: inline-block;
+  background-color: gray;
+  vertical-align: bottom;
+  width: 6px;
+  height: 1.2em;
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+button {
+  background: none;
+  border: solid 1px black;
+  border-radius: 4px;
+  padding: 4px 16px;
+}
+
+button:hover {
+  background-color: aliceblue;
+  cursor: pointer;
+}
