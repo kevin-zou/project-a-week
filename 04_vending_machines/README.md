@@ -30,7 +30,7 @@ From here I spent a fair amount of time wrangling the page into a layout that I 
 My next task was to programmatically extract the data from all my images. I used exiftool in a Bash script to pull out various pieces of information&mdash;latitude, longitude, and created date&mdash;and output them to a file. At this point I discovered that my camera app did not have permission to my "precise location", and all the GPS positions are quite off the mark. This was an unfortunate oversight, but there isn't much I could do at this point. I've gone through some photos and manually set these positions, and I'll continue to do so (even after the Project A Week deadline, I think we can make an exception here).
 
 ## Final thoughts
-Overall this was a very fun project to make, and one that I wish I had started earlier. In the spirit of Project a Week this will the final state for this iteration. Look forward to when I pull this out into its own repo and build on it!
+Overall this was a very fun project to make, and one that I wish I had started earlier. In the spirit of Project a Week this will be the final state for this iteration. Look forward to when I pull this out into its own repo and build on it!
 
 ## Future improvements
 - Show the "Date taken" somewhere in the sidebar cards
