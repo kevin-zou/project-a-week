@@ -30,7 +30,7 @@ function App() {
           goTo={() => {
             if (leaflet) {
               leaflet.flyTo(vm.coords);
-              // TODO: On click, select the corresponding VMCard in the sidebar
+              leaflet.closePopup(); // Close any open popups
             }
           }}
         />

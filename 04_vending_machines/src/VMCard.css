@@ -1,7 +1,12 @@
 .card {
   border: 1px solid lightslategray;
   border-radius: 8px;
-  padding-top: 16px;
+  padding: 16px;
+  transition: background-color 0.4s ease;
+}
+
+.card h2, .card p {
+  margin: 0;
 }
 
 .card:hover {
@@ -11,6 +16,6 @@
 
 @media (prefers-color-scheme: light) {
   .card:hover {
-    background-color: #141414;
+    background-color: #f4f4f4;
   }
 }
