@@ -1,6 +1,8 @@
 # Vending machines
 I saw a lot of vendings machines during my vacation in Japan, and I took a picture every time I came across a "notable" one. Then I thought, "Wouldn't it be neat to have an interactive map of where I found these vending machines?"
 
+Check it out [here](http://vendingmachines.kevinzou.xyz)!
+
 <img src="screenshot.png" alt="drawing" width="50%"/>
 
 ## Development/Building
@@ -35,3 +37,5 @@ Overall this was a very fun project to make, and one that I wish I had started e
 - Show image in larger resolution when clicked
 - Highlight map markers when corresponding card in sidebar is hovered
 - Open marker popup when corresponding card in sidebar is selected
+- Make mobile friendly
+- Host the images somewhere else for better loading times
