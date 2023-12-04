@@ -1,4 +1,16 @@
 .card {
   border: 1px solid lightslategray;
-  border-radius: 4px;
+  border-radius: 8px;
+  padding-top: 16px;
+}
+
+.card:hover {
+  background-color: #141414;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: light) {
+  .card:hover {
+    background-color: #141414;
+  }
 }

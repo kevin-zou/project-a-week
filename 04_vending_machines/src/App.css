@@ -1,25 +1,51 @@
 #root {
   text-align: center;
+  padding: 24px;
 }
 
 .header {
-  height: 20vh;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  padding-bottom: 24px;
+}
+
+.header h1, .header p {
+  margin: 0;
+}
+
+.footer {
+  height: 24px;
+  padding-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
 }
 
 .container {
   display: flex;
-  width: 100vw;
-  height: 80vh;
+  width: calc(100vw - 48px);
+  height: calc(100vh - 224px - 48px - 48px);
 }
 
 .sidebar {
   overflow-y: scroll;
   flex: 0 0 500px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 8px;
 }
 
 /* Need to initialize height of this container */
 .leaflet-container {
   width: 100%;
   height: 100%;
+}
+
+.leaflet-popup-content {
+  text-align: center;
 }

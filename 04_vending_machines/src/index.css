@@ -21,15 +21,25 @@ body {
   min-height: 100vh;
 }
 
+a {
+  color: #80d9ff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.4s ease;
+}
+
+a:visited {
+  color: #80d9ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #64ab3e;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
