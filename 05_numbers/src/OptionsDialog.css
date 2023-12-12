@@ -1,0 +1,46 @@
+.options-dialog {
+  background-color: #242424;
+  width: 80vw;
+  border-radius: 8px;
+  border: none;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-row {
+  width: 50%;
+  display: grid;
+  grid-template: 1fr / 200px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.input-row > label {
+  text-align: right;
+}
+
+.checkbox-container {
+  width: 100%;
+  padding: 0.6em 1.2em;
+}
+
+.checkbox-container > input {
+  margin: 0;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (prefers-color-scheme: light) {
+  .options-dialog {
+    background-color: #ffffff;
+  }
+}
