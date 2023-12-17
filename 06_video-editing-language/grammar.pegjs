@@ -4,8 +4,13 @@ Script
   }
 
 Import
-  = 'import'_ Filename _ 'as' _ Variable ';' {
+  = 'import' _ Filename _ 'as' _ Variable ';' {
     return 'import statement'
+  }
+  
+Export
+  = 'export' _ Variable _ 'as' _ Filename ';' {
+    return 'export statement'
   }
   
 Slice
@@ -13,13 +18,23 @@ Slice
     return 'slice statement'
   }
   
+Track
+  = 'new track as' _ Variable ';' {
+    return 'track statement'
+  }
+  
+AddToTrack
+  = 'add' _ Variable _ 'on' _ Variable timestamp:(_ 'at' _ Timestamp) ? ';' {
+    return timestamp ? 'add to track timestamp' : 'add to track'
+  }
+  
 Command
-  = Import _ / Slice _ {
-    return 'command'
+  = command:(Import / Export / Slice / Track / AddToTrack) _ {
+    return command
   }
   
 Filename
-  = [a-zA-z0-9]+.[a-zA-z0-9]+ {
+  = ('"'[a-zA-z0-9 ]+.[a-zA-z0-9]+'"') / ([a-zA-z0-9]+.[a-zA-z0-9]+) {
     return 'filename'
   }
   
@@ -29,7 +44,7 @@ Variable
   }
   
 Timestamp
-  = [0-5][0-9]':'[0-5][0-9] {
+  = [0-5][0-9] ':' [0-5][0-9] {
     return 'timestamp'
   }
 

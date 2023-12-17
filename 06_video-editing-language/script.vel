@@ -1,2 +1,13 @@
 import testing.mp4 as video1;
 slice video1 00:10 to 00:50 as clip1;
+import video1.mp4 as video1;
+import video2.mp4 as video2;
+
+slice video1 00:10 to 00:50 as clip1;
+slice video2 00:00 to 01:42 as clip2;
+
+new track as track1;
+add clip1 on track1 at 00:00;
+add clip2 on track1;
+
+export track1 as "export file.mp4";
