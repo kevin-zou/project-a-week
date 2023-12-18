@@ -1,10 +1,17 @@
+{
+  const {
+    importFile,
+  } = options;
+}
+
 Script
   = commands:(Command)+ {
     return commands;
   }
 
 Import
-  = 'import' _ Filename _ 'as' _ Variable ';' {
+  = 'import' _ filename:Filename _ 'as' _ variable:Variable ';' {
+    importFile(filename, variable);
     return 'import statement'
   }
   

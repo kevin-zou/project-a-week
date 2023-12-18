@@ -1,5 +1,3 @@
-import testing.mp4 as video1;
-slice video1 00:10 to 00:50 as clip1;
 import video1.mp4 as video1;
 import video2.mp4 as video2;
 
