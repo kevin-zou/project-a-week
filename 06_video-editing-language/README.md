@@ -1,7 +1,7 @@
 # Video editing language
 A language and interpreter for programmatic video editing.
 
-This was a little ambitious and I didn't end up getting as far as I would've liked. The biggest hurddle was getting famliliar with a bunch of new libraries (PEG.js, ffmpeg, fluent-ffmpeg) and applying them. That said, this was a lot of fun. I've been meaning to do something that isn't a web project, so this itches that scratch a bit.
+This was a little ambitious and I didn't end up getting as far as I would've liked. The biggest hurdle was getting famliliar with a bunch of new libraries (PEG.js, ffmpeg, fluent-ffmpeg) and applying them. That said, this was a lot of fun. I've been meaning to do something that isn't a web project, so this itches that scratch a bit.
 
 ## Use
 Clone this repository, navigate to it, and install dependencies with `npm install`. Afterward, create a new "script" file or modify the existing one in `examples/script.vel`.
