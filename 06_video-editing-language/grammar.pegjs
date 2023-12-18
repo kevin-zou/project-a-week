@@ -19,7 +19,7 @@ Script
   }
 
 Import
-  = 'import' _ f:Filename _ 'as' _ v:Variable ';' {
+  = 'import' _ f:(Filename / FilenameWithQuotes ) _ 'as' _ v:Variable ';' {
     importFile(state, f, v);
   }
   
@@ -54,7 +54,7 @@ Filename
   }
 
 FilenameWithQuotes
-  = '"'[a-zA-z0-9 ]+.[a-zA-z0-9]+'"' {
+  = '"'[a-zA-z0-9/\ ]+.[a-zA-z0-9]+'"' {
     const match = text();
     return match.substring(1, match.length - 1);
   }

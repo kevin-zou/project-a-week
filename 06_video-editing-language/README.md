@@ -56,6 +56,9 @@ Adds a video slice onto the track. If there are existing slices, the added slice
 
 Exports the selected track to the file path specified.
 
+### Filepaths
+Filepaths must be absolute.
+
 ## Technical details
 I used [PEG.js](https://pegjs.org) to create a set of grammar rules and an accompanying parser. Once I got a general set of rules down, I started writing the bindings to ffmpeg. This would've been much more difficult if it weren't for the [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg) library, which provided an easy interface to using ffmpeg in Node.
 
