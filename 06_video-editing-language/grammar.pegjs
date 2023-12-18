@@ -5,6 +5,9 @@
   } = options;
 
   const {
+    addTrack,
+    addToTrack,
+    exportFile,
     importFile,
     slice,
   } = commands;
@@ -21,8 +24,8 @@ Import
   }
   
 Export
-  = 'export' _ Variable _ 'as' _ Filename ';' {
-    return 'export statement'
+  = 'export' _ v:Variable _ 'as' _ f:(Filename / FilenameWithQuotes) ';' {
+    exportFile(state, v, f);
   }
   
 Slice
@@ -31,13 +34,18 @@ Slice
   }
   
 Track
-  = 'new track as' _ Variable ';' {
-    return 'track statement'
+  = 'new track as' _ name:Variable ';' {
+    addTrack(state, name);
   }
   
 AddToTrack
-  = 'add' _ Variable _ 'on' _ Variable timestamp:(_ 'at' _ Timestamp) ? ';' {
-    return timestamp ? 'add to track timestamp' : 'add to track'
+  = 'add' _ inputVar:Variable _ 'on' _ trackName:Variable timestamp:AddToTrackAt? ';' {
+    addToTrack(state, inputVar, trackName, timestamp);
+  }
+
+AddToTrackAt
+  = _ 'at' _ timestamp:Timestamp {
+    return timestamp;
   }
   
 Command
@@ -46,7 +54,12 @@ Command
   }
   
 Filename
-  = ('"'[a-zA-z0-9 ]+.[a-zA-z0-9]+'"') / ([a-zA-z0-9]+.[a-zA-z0-9]+) {
+  = [a-zA-z0-9]+.[a-zA-z0-9]+ {
+    return text();
+  }
+
+FilenameWithQuotes
+  = '"'[a-zA-z0-9 ]+.[a-zA-z0-9]+'"' {
     return text();
   }
   

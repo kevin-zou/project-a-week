@@ -16,7 +16,8 @@ async function main() {
   // Initialize state
   const state = {
     aliases: {},
-    ffmpegObjects: {},
+    slices: {},
+    tracks: {},
   };
 
   const pegRules = await readFile('grammar.pegjs', 'utf8');
@@ -24,7 +25,7 @@ async function main() {
   log('Script loaded', STATUS.INFO);
   const parser = peg.generate(pegRules);
   try {
-    const output = parser.parse(script, {
+    parser.parse(script, {
       commands,
       state,
     });
