@@ -1,4 +1,5 @@
 const ffmpeg = require('fluent-ffmpeg');
+const { STATUS } = require('./constants.js');
 
 // TODO: Change this and the grammar to accept file paths
 const importFile = (state, filename, outputVar) => {
@@ -19,28 +20,32 @@ const exportFile = (state, trackName, outputPath) => {
   const { parts } = track;
   const ffmpegCmd = ffmpeg();
   const filters = [];
-  let finalFilter = '';
+  let concatFilter = '';
   parts.forEach((part, index) => {
-    const { slice, timestamp } = part;
-    ffmpegCmd.input(slice.path);
+    const { slice } = part;
+    ffmpegCmd
+      .input(slice.path)
     const startTimeInSeconds = timestampToSeconds(slice.startTime);
     const endTimeInSeconds = timestampToSeconds(slice.endTime);
-    const filter = `[${index}:v]trim=start=${startTimeInSeconds}:end=${endTimeInSeconds},setpts=PTS-STARTPTS[v${index}]`;
-    filters.push(filter);
-    finalFilter += `[v${index}]`;
+    // TODO: Do not just set to 1080p by default
+    const input = `[${index}:v]`;
+    const output = `[v${index}]`;
+    filters.push(`${input}scale=1920:1080,trim=start=${startTimeInSeconds}:end=${endTimeInSeconds},setpts=PTS-STARTPTS${output}`);
+    concatFilter += output;
   });
-  finalFilter += `concat=n=${parts.length}:v=1:a=0[outv]`
-  filters.push(finalFilter);
-  console.log(filters)
+  concatFilter += `concat=n=${parts.length}[outv]`
+  filters.push(concatFilter)
+
   ffmpegCmd
-    .complexFilter(filters)
-    .outputOptions('-map "[outv]"')
-    .audioCodec('copy')
-    .output(outputPath)
-    .on('error', (err) => {
-      throw Error(err)
-    })
-    .run();
+    .fps(30)
+    .complexFilter(
+      filters,
+      'outv',
+    )
+    .on('start', (_cmd) => state.log('Processing...', STATUS.INFO))
+    .on('error', (err) => state.log(err, STATUS.ERROR))
+    .on('end', () => state.log(`Complete! Output saved at ${outputPath}`, STATUS.SUCCESS))
+    .save(outputPath)
 }
 
 const slice = (state, inputVar, startTime, endTime, outputVar) => {
@@ -74,7 +79,7 @@ const addTrack = (state, name) => {
   };
 }
 
-const addToTrack = (state, inputVar, trackName, timestamp) => {
+const addToTrack = (state, inputVar, trackName) => {
   const { slices, tracks } = state;
   if (!tracks[trackName]) {
     throw Error(`Track "${trackName}" does not exist`);
@@ -86,7 +91,6 @@ const addToTrack = (state, inputVar, trackName, timestamp) => {
   const slice = slices[inputVar];
   track.parts.push({ 
     slice,
-    timestamp,
   });
 }
 

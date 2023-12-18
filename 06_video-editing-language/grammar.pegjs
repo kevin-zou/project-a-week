@@ -39,13 +39,8 @@ Track
   }
   
 AddToTrack
-  = 'add' _ inputVar:Variable _ 'on' _ trackName:Variable timestamp:AddToTrackAt? ';' {
-    addToTrack(state, inputVar, trackName, timestamp);
-  }
-
-AddToTrackAt
-  = _ 'at' _ timestamp:Timestamp {
-    return timestamp;
+  = 'add' _ inputVar:Variable _ 'on' _ trackName:Variable ';' {
+    addToTrack(state, inputVar, trackName);
   }
   
 Command
@@ -60,7 +55,8 @@ Filename
 
 FilenameWithQuotes
   = '"'[a-zA-z0-9 ]+.[a-zA-z0-9]+'"' {
-    return text();
+    const match = text();
+    return match.substring(1, match.length - 1);
   }
   
 Variable
