@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "pegjs": "^0.10.0"
   }
 }

@@ -1,7 +1,13 @@
 {
   const {
-    importFile,
+    commands,
+    state,
   } = options;
+
+  const {
+    importFile,
+    slice,
+  } = commands;
 }
 
 Script
@@ -10,9 +16,8 @@ Script
   }
 
 Import
-  = 'import' _ filename:Filename _ 'as' _ variable:Variable ';' {
-    importFile(filename, variable);
-    return 'import statement'
+  = 'import' _ f:Filename _ 'as' _ v:Variable ';' {
+    importFile(state, f, v);
   }
   
 Export
@@ -21,8 +26,8 @@ Export
   }
   
 Slice
-  = 'slice' _ Variable _ Timestamp _ 'to' _ Timestamp _ 'as' _ Variable ';' {
-    return 'slice statement'
+  = 'slice' _ v1:Variable _ start:Timestamp _ 'to' _ end:Timestamp _ 'as' _ v2:Variable ';' {
+    slice(state, v1, start, end, v2);
   }
   
 Track
@@ -37,22 +42,22 @@ AddToTrack
   
 Command
   = command:(Import / Export / Slice / Track / AddToTrack) _ {
-    return command
+    return command;
   }
   
 Filename
   = ('"'[a-zA-z0-9 ]+.[a-zA-z0-9]+'"') / ([a-zA-z0-9]+.[a-zA-z0-9]+) {
-    return 'filename'
+    return text();
   }
   
 Variable
   = [a-zA-z0-9]+ {
-    return 'variable'
+    return text();
   }
   
 Timestamp
   = [0-5][0-9] ':' [0-5][0-9] {
-    return 'timestamp'
+    return text();
   }
 
 _ "whitespace"
