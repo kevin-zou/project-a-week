@@ -3,24 +3,26 @@
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Socket.IO chat</title>
-    <style>
-      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
-      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-      #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
   </head>
   <body>
     <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
+    <div id="bar">
+      <div id="status-msg"></div>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" disabled/>
+        <button id="send" disabled>Send</button>
+      </form>
+    </div>
+
+    <dialog id="login" open>
+      <h3>Enter your display name</h3>
+      <form id="username-form">
+        <div id="error-msg"></div>
+        <input id="username" type="text" />
+        <button id="username-submit">Start chatting</button>
+      </form>
+    </dialog>
   </body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
@@ -37,10 +39,57 @@
         input.value = '';
       }
     });
+
+    // Username submission logic
+    const usernameForm = document.getElementById('username-form');
+    const errMsg = document.getElementById('error-msg');
+    usernameForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const usernameInput = document.getElementById('username');
+      const username = usernameInput.value.trim();
+
+      // Validate username
+      if (username.length < 3) {
+        showErrorMsg('Username must be at least 3 characters long');
+        return;
+      }
+      if (username.length > 15) {
+        showErrorMsg('Username cannot be over 15 characters long');
+        return;
+      }
+
+      // Check if username is in use
+      socket.emit('new username', username);
+    })
+
+    function showErrorMsg(msg) {
+      errMsg.textContent = msg;
+      errMsg.style.display = 'block';
+    }
+
+    function hideErrorMsg() {
+      errMsg.style.display = 'none';
+    }
+
+    socket.on('username ok', () => {
+      const usernameDialog = document.getElementById('login');
+      usernameDialog.close();
+      document.querySelector('#form input#input').disabled = false;
+      document.querySelector('#form button#send').disabled = false;
+    });
+
+    socket.on('username taken', () => {
+      showErrorMsg('Display name taken, please try another one')
+    });
+
+    socket.on('updated users', (usernames) => {
+      const statusDiv = document.getElementById('status-msg');
+      statusDiv.textContent = `${usernames.length} user${usernames.length === 1 ? '' : 's'} present`;
+    });
   
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', ({ msg, username }) => {
       const item = document.createElement('li');
-      item.textContent = msg;
+      item.textContent = `${username}: ${msg}`;
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });
