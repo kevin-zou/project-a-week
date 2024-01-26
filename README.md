@@ -7,7 +7,7 @@ My brother ([@RaymoZou](https://github.com/RaymoZou)) and I are challenging each
 | 01   | [Hello world](/01_hello-world/) | 
 | 02   | Skipped (vacation) |
 | 03   | Skipped (vacation) |
-| 04   | [Vending machines](/04_vending_machines/) | I really like how this turned out |
+| 04   | [Vending machines](/04_vending_machines/) | Interactive maps |
 | 05   | [Number generator](/05_numbers/) |
 | 06   | [Video editing language](/06_video-editing-language/) | Custom languages, videos |
 | 07   | Skipped (holidays) |
