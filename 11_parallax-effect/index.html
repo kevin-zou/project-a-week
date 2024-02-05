@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Effect Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      window.addEventListener('load', () => {
+        const btn = document.querySelector('button#scroll-btn');
+        btn.addEventListener('click', () => {
+          const container = document.querySelector('#container');
+          container.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="parallax">
+      <button id="scroll-btn">Scroll</button>
+    </div>
+    <div id="container">
+      <h2>Parallax Effect Demo</h2>
+      <p>This is a really simple implementation of the parallax effect. There are two "container" elements, the first one contains the image and the second one contains this text section.</p>
+      <p>The first container has a background image applied to it, with the CSS property <code>background-attachment: fixed</code> applied to it. As the name implies, this keeps the background image in place while the user scrolls.</p>
+      <p>The second container can be whatever you want, but typically it is used for the main content. There are no hard requirements for this container.</p>
+    </div>
+  </body>
+</html>

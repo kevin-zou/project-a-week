@@ -1,0 +1,55 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+code {
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 14px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+#parallax {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('./public/night.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#scroll-btn {
+  padding: 12px;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 1s;
+}
+
+#scroll-btn:hover {
+  background: white;
+  color: black;
+  cursor: pointer;
+}
+
+@media only screen and (max-device-width: 1366px) {
+  #parallax {
+    background-attachment: scroll;
+ }
+}
+
+#container {
+  margin: 2rem;
+  height: 80vh;
+}

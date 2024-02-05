@@ -14,3 +14,4 @@ My brother ([@RaymoZou](https://github.com/RaymoZou)) and I are challenging each
 | 08   | [APT Tour scraper](/08_apt-tour-scraper/) | Web scraping |
 | 09   | [Chat](/09_chat/) | Websockets |
 | 10   | [Link shortener](/10_url-shortener/) |
+| 11   | [Parallax effect demo](/11_parallax-effect/) |
